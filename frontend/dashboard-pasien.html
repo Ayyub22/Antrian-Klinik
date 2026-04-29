@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Pasien — KlinikQ</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="dashboard">
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger">☰</button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="assets/logo.png" alt="KlinikQ"
+          style="height:28px;vertical-align:middle;margin-right:8px;border-radius:6px">KlinikQ</div>
+      <ul class="sidebar-nav">
+        <li><a href="#" data-section="section-status" class="active">Antrian Saya</a></li>
+        <li><a href="#" data-section="section-ambil">Ambil Antrian</a></li>
+      </ul>
+      <div
+        style="padding:16px 24px;margin-top:auto;border-top:1px solid var(--border-glass);position:absolute;bottom:0;left:0;right:0">
+        <div class="nav-user" style="margin-bottom:12px">
+          <span><span id="userName">Pasien</span></span>
+        </div>
+        <button class="btn btn-secondary btn-sm btn-block" onclick="logout()">Keluar</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- My Tickets Section -->
+      <div id="section-status" class="dashboard-section">
+        <div class="dash-header">
+          <h1>Antrian Saya</h1>
+          <button class="btn btn-secondary btn-sm" onclick="loadPasienDashboard()">Refresh</button>
+        </div>
+        <div id="myTickets">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Take Queue Section -->
+      <div id="section-ambil" class="dashboard-section hidden">
+        <div class="dash-header">
+          <h1>Ambil Antrian</h1>
+          <button class="btn btn-secondary btn-sm" onclick="loadAvailableQueues()">Refresh</button>
+        </div>
+        <p style="color:var(--text-secondary);margin-bottom:24px">Pilih dokter atau poli yang tersedia untuk mengambil
+          nomor antrian</p>
+        <div id="availableQueues">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/realtime.js"></script>
+  <script src="js/pasien.js"></script>
+</body>
+
+</html>

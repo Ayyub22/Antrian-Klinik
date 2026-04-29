@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="KlinikQ - Sistem antrian klinik dan puskesmas online. Ambil nomor antrian dari mana saja, pantau posisi real-time.">
+  <title>KlinikQ — Antrian Klinik Online</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="navbar-brand"><img src="assets/logo.png" alt="KlinikQ" style="height:32px;vertical-align:middle;margin-right:8px;border-radius:6px">KlinikQ</a>
+      <div class="navbar-nav" id="navButtons">
+        <a href="login.html" class="btn btn-secondary btn-sm">Masuk</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Daftar</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="container hero-content">
+      <h1>Antrian Klinik <span>Tanpa Ribet</span></h1>
+      <p>Ambil nomor antrian online, pantau posisi real-time, dan dapatkan notifikasi saat nomor Anda hampir dipanggil.
+        Tidak perlu menunggu berjam-jam di ruang tunggu.</p>
+      <div class="hero-buttons">
+        <a href="register.html" class="btn btn-primary btn-lg">Mulai Sekarang</a>
+        <a href="#features" class="btn btn-secondary btn-lg">Pelajari Fitur</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="features" id="features">
+    <div class="container">
+      <h2 class="text-center" style="font-size:32px;margin-bottom:48px">Fitur <span
+          style="background:var(--gradient-main);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Unggulan</span>
+      </h2>
+      <div class="features-grid">
+        <div class="glass-card feature-card">
+          <div class="feature-icon">📱</div>
+          <h3>Antrian Online</h3>
+          <p>Ambil nomor antrian dari smartphone Anda. Tidak perlu datang pagi-pagi hanya untuk mengambil nomor.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3>Real-time Update</h3>
+          <p>Pantau posisi antrian secara real-time. Nomor yang sedang dilayani selalu terupdate otomatis.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">🔔</div>
+          <h3>Notifikasi Pintar</h3>
+          <p>Dapatkan notifikasi saat nomor Anda hampir dipanggil. Tidak akan terlewat lagi!</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">⏱️</div>
+          <h3>Estimasi Waktu</h3>
+          <p>Lihat perkiraan waktu tunggu sehingga Anda bisa mengatur waktu dengan lebih baik.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">👨‍⚕️</div>
+          <h3>Pilih Dokter</h3>
+          <p>Pilih dokter atau poli yang tersedia sesuai kebutuhan kesehatan Anda.</p>
+        </div>
+        <div class="glass-card feature-card">
+          <div class="feature-icon">📊</div>
+          <h3>Dashboard Admin</h3>
+          <p>Panel admin lengkap untuk mengelola antrian, dokter, dan memantau layanan klinik.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer style="text-align:center;padding:40px 20px;border-top:1px solid var(--border-glass);margin-top:40px">
+    <p style="color:var(--text-muted);font-size:14px">© 2024 KlinikQ — Sistem Antrian Klinik Online</p>
+  </footer>
+
+  <script src="js/config.js"></script>
+  <script>
+    // If logged in, update nav
+    if (isLoggedIn()) {
+      const user = getUser();
+      document.getElementById('navButtons').innerHTML = `
+        <span style="color:var(--text-secondary);font-size:14px">Halo, ${user.nama}</span>
+        <a href="${user.role === 'admin' ? 'dashboard-admin.html' : 'dashboard-pasien.html'}" class="btn btn-primary btn-sm">Dashboard</a>
+      `;
+    }
+  </script>
+</body>
+
+</html>

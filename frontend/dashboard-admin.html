@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Admin — KlinikQ</title>
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+  <div class="dashboard">
+    <!-- Hamburger -->
+    <button class="hamburger" id="hamburger">☰</button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-brand"><img src="assets/logo.png" alt="KlinikQ"
+          style="height:28px;vertical-align:middle;margin-right:8px;border-radius:6px">KlinikQ</div>
+      <ul class="sidebar-nav">
+        <li><a href="#" data-section="section-overview" class="active">Overview</a></li>
+        <li><a href="#" data-section="section-queues">Antrian</a></li>
+        <li><a href="#" data-section="section-doctors">Dokter</a></li>
+      </ul>
+      <div
+        style="padding:16px 24px;margin-top:auto;border-top:1px solid var(--border-glass);position:absolute;bottom:0;left:0;right:0">
+        <div class="nav-user" style="margin-bottom:12px">
+          <span><span id="userName">Admin</span></span>
+        </div>
+        <button class="btn btn-secondary btn-sm btn-block" onclick="logout()">Keluar</button>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Overview Section -->
+      <div id="section-overview" class="dashboard-section">
+        <div class="dash-header">
+          <h1>Dashboard Admin</h1>
+          <button class="btn btn-primary" onclick="showCreateQueue()">+ Buat Sesi Antrian</button>
+        </div>
+        <div class="stats-grid">
+          <div class="glass-card stat-card">
+            <div class="stat-icon blue">📋</div>
+            <div>
+              <div class="stat-value" id="statTotal">0</div>
+              <div class="stat-label">Total Antrian</div>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon amber">⏳</div>
+            <div>
+              <div class="stat-value" id="statWaiting">0</div>
+              <div class="stat-label">Menunggu</div>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon purple">🔔</div>
+            <div>
+              <div class="stat-value" id="statServing">0</div>
+              <div class="stat-label">Dilayani</div>
+            </div>
+          </div>
+          <div class="glass-card stat-card">
+            <div class="stat-icon emerald">✅</div>
+            <div>
+              <div class="stat-value" id="statDone">0</div>
+              <div class="stat-label">Selesai</div>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="section-header">
+            <h2>Antrian Hari Ini</h2>
+            <button class="btn btn-secondary btn-sm" onclick="loadDashboard()">Refresh</button>
+          </div>
+          <div id="queuesList">
+            <div class="spinner"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Queues Section (same content as overview queues) -->
+      <div id="section-queues" class="dashboard-section hidden">
+        <div class="dash-header">
+          <h1>Manajemen Antrian</h1>
+          <button class="btn btn-primary" onclick="showCreateQueue()">+ Buat Sesi Antrian</button>
+        </div>
+        <div id="queuesListAlt">
+          <div class="spinner"></div>
+        </div>
+      </div>
+
+      <!-- Doctors Section -->
+      <div id="section-doctors" class="dashboard-section hidden">
+        <div class="dash-header">
+          <h1>Manajemen Dokter</h1>
+          <button class="btn btn-primary" onclick="showAddDoctor()">+ Tambah Dokter</button>
+        </div>
+        <div id="doctorsList">
+          <div class="spinner"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Create Queue Modal -->
+  <div id="createQueueModal" class="modal-overlay hidden"
+    onclick="if(event.target===this)closeModal('createQueueModal')">
+    <div class="modal">
+      <h3>Buat Sesi Antrian</h3>
+      <form onsubmit="handleCreateQueue(event)">
+        <div class="form-group">
+          <label for="selectDoctor">Pilih Dokter</label>
+          <select id="selectDoctor" class="form-control" required>
+            <option value="">Memuat...</option>
+          </select>
+        </div>
+        <div class="flex gap-1">
+          <button type="submit" class="btn btn-primary">Buat Antrian</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('createQueueModal')">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Doctor Modal -->
+  <div id="addDoctorModal" class="modal-overlay hidden" onclick="if(event.target===this)closeModal('addDoctorModal')">
+    <div class="modal">
+      <h3>Tambah Dokter</h3>
+      <form onsubmit="handleAddDoctor(event)">
+        <div class="form-group">
+          <label for="doctorNama">Nama Dokter</label>
+          <input type="text" id="doctorNama" class="form-control" placeholder="dr. Nama Lengkap" required>
+        </div>
+        <div class="form-group">
+          <label for="doctorSpesialis">Spesialis</label>
+          <input type="text" id="doctorSpesialis" class="form-control" placeholder="Umum / Gigi / Anak / dll" required>
+        </div>
+        <div class="flex gap-1">
+          <button type="submit" class="btn btn-primary">Tambah</button>
+          <button type="button" class="btn btn-secondary" onclick="closeModal('addDoctorModal')">Batal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/realtime.js"></script>
+  <script src="js/admin.js"></script>
+</body>
+
+</html>

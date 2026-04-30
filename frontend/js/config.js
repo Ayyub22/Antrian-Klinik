@@ -1,6 +1,7 @@
 // KlinikQ Frontend Configuration
+const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
 const CONFIG = {
-  API_URL: 'http://localhost:3000/api',
+  API_URL: isLocal ? 'http://localhost:3000/api' : window.location.origin + '/api',
   SUPABASE_URL: 'https://xjvsmsyklnoslmupnlxn.supabase.co',
   SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqdnNtc3lrbG5vc2xtdXBubHhuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcyMjc3ODAsImV4cCI6MjA5MjgwMzc4MH0.GO6FeIzIDw-nFPDe49jPNYU9lYyyKwM0Sovh_ZIogVE',
   AVG_MINUTES_PER_PATIENT: 10

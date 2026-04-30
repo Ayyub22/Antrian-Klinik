@@ -14,8 +14,8 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json());
 
-// Serve frontend static files
-app.use(express.static(path.join(__dirname, '..', 'frontend')));
+// Serve static files from public folder
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // API Routes
 app.use('/api/auth', authRoutes);
@@ -27,14 +27,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', message: 'KlinikQ API is running' });
 });
 
-// Serve frontend for all non-API routes (SPA fallback)
+// SPA fallback
 app.get('*', (req, res) => {
   if (!req.path.startsWith('/api')) {
-    res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
   }
 });
 
-// Only listen when run directly (not when imported by Vercel)
+// Only listen when run directly
 if (require.main === module) {
   app.listen(PORT, () => {
     console.log(`🏥 KlinikQ server running on http://localhost:${PORT}`);

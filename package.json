@@ -2,6 +2,9 @@
   "name": "klinikq",
   "version": "1.0.0",
   "private": true,
+  "scripts": {
+    "build": "echo done"
+  },
   "dependencies": {
     "@supabase/supabase-js": "^2.49.0",
     "bcryptjs": "^2.4.3",

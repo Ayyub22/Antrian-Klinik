@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({ path: require('path').join(__dirname, '.env') });
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
@@ -34,6 +34,11 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🏥 KlinikQ server running on http://localhost:${PORT}`);
-});
+// Only listen when run directly (not when imported by Vercel)
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`🏥 KlinikQ server running on http://localhost:${PORT}`);
+  });
+}
+
+module.exports = app;
